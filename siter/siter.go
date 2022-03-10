@@ -11,6 +11,11 @@ type Iter interface {
 	Value() interface{}
 }
 
+type MutIter interface {
+	Next() bool
+	Ptr() interface{}
+}
+
 type SliceIter struct {
 	SlicePtr interface{}
 	Slicer *xunsafe.Slice
