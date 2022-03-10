@@ -70,3 +70,17 @@ func main() {
 
 }
 ```
+
+## Benchmarks
+
+Here are some quick benchmarks from `scripts/timing.go`:
+
+| Method | Time | Normalized time |
+| --- | --- | --- |
+| Non-generic | 21.509735ms | 1.0 |
+| siter | 173.209838ms | 8.055 |
+| reflection | 1.911873678s | 88.88 |
+
+The short version is that siter is about 8 times slower than totally
+non-generic code, but reflection is 88 times slower. As far as generic
+code goes, you can't beat siter on performance.
