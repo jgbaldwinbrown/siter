@@ -69,13 +69,12 @@ func (m *MapIter) Value() interface{} {
 
 func time_siter() {
 	a := []int{5,6,7}
-	idx := siter.SliceIndex(&a)
-	iter := siter.IndexedRange(&idx)
+	iter := siter.SliceRange(&a)
 	for iter.Next() {
 		fmt.Println(iter.Value())
 	}
 
-	iter2 := siter.IndexedMutRange(&idx)
+	iter2 := siter.SliceMutRange(&a)
 	for iter2.Next() {
 		ptr := iter2.Ptr().(*int)
 		*ptr++
@@ -84,8 +83,7 @@ func time_siter() {
 
 	a2 := make([]int, 10000000)
 	a3 := make([]int, 10000000)
-	idx2 := siter.SliceIndex(&a2)
-	iter3 := siter.IndexedRange(&idx2)
+	iter3 := siter.SliceRange(&a2)
 	i := 0
 	start := time.Now()
 	for iter3.Next() {

@@ -78,6 +78,11 @@ func (i *IndexedIter) Value() interface{} {
 	return i.Indexed.Value(i.Pos)
 }
 
+func SliceRange(sliceptr interface{}) IndexedIter {
+	indexed := SliceIndex(sliceptr)
+	return IndexedRange(&indexed)
+}
+
 func IndexedMutRange(i IndexedPtrs) (iter IndexedMutIter) {
 	iter.Indexed = i
 	iter.Pos = -1
@@ -91,4 +96,9 @@ func (i *IndexedMutIter) Next() bool {
 
 func (i *IndexedMutIter) Ptr() interface{} {
 	return i.Indexed.Ptr(i.Pos)
+}
+
+func SliceMutRange(sliceptr interface{}) IndexedMutIter {
+	indexed := SliceIndex(sliceptr)
+	return IndexedMutRange(&indexed)
 }
