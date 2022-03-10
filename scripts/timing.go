@@ -69,25 +69,27 @@ func (m *MapIter) Value() interface{} {
 
 func time_siter() {
 	a := []int{5,6,7}
-	iter := siter.SliceRange(&a)
+	idx := siter.SliceIndex(&a)
+	iter := siter.IndexedRange(&idx)
 	for iter.Next() {
 		fmt.Println(iter.Value())
 	}
 
-	iter = siter.SliceRange(&a)
-	for iter.Next() {
-		ptr := iter.Ptr().(*int)
+	iter2 := siter.IndexedMutRange(&idx)
+	for iter2.Next() {
+		ptr := iter2.Ptr().(*int)
 		*ptr++
 	}
 	fmt.Println(a)
 
 	a2 := make([]int, 10000000)
 	a3 := make([]int, 10000000)
-	iter = siter.SliceRange(&a2)
+	idx2 := siter.SliceIndex(&a2)
+	iter3 := siter.IndexedRange(&idx2)
 	i := 0
 	start := time.Now()
-	for iter.Next() {
-		a3[i] = a2[i]
+	for iter3.Next() {
+		a3[i] = iter3.Value().(int)
 		i++
 	}
 	end := time.Now()
