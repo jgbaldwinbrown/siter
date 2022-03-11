@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"time"
-	"local/jgbaldwinbrown/siter/siter"
+	"github.com/jgbaldwinbrown/siter/siter"
 	"reflect"
 )
 

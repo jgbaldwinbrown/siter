@@ -77,10 +77,17 @@ Here are some quick benchmarks from `scripts/timing.go`:
 
 | Method | Time | Normalized time |
 | --- | --- | --- |
-| Non-generic | 21.509735ms | 1.0 |
-| siter | 173.209838ms | 8.055 |
-| reflection | 1.911873678s | 88.88 |
+| Non-generic | 24.716187ms | 1.0 |
+| Interface | 40.030256ms | 1.61 |
+| Siter | 118.43953ms | 4.79 |
+| Reflection | 2.383805783s | 96.44 |
 
-The short version is that siter is about 8 times slower than totally
-non-generic code, but reflection is 88 times slower. As far as generic
-code goes, you can't beat siter on performance.
+The short version is that siter is about 5 times slower than totally
+non-generic code, but reflection is almost 100 times slower. As far as generic
+code goes, you can't beat siter on performance. If you simulate generic code by
+making an interface-returning hard-coded iterator over an int slice, you can do
+much better (1.61X compared to native code), and you get type safety, but you
+have to write several boilerplate functions for every slice type. Overall,
+reflection is clearly the oddball here. Outside of that, generic code is
+pretty efficient and reasonably safe. Real generics may outmode _xunsafe_ generics soon,
+but I still think we didn't give unsafe code enough of a chance.
