@@ -7,6 +7,26 @@ import (
 	"reflect"
 )
 
+type IntIterator struct {
+	Arr []int
+	Pos int
+}
+
+func (i *IntIterator) Next() bool {
+	i.Pos++
+	return i.Pos < len(i.Arr)
+}
+
+func (i *IntIterator) Value() interface{} {
+	return i.Arr[i.Pos]
+}
+
+func IntRange(arr []int) (iter IntIterator) {
+	iter.Arr = arr
+	iter.Pos = -1
+	return
+}
+
 type SliceIter struct {
 	Slice interface{}
 	SliceVal reflect.Value
@@ -136,7 +156,22 @@ func time_fast_and_slow() {
 	fmt.Println(end2.Sub(start2))
 }
 
+func time_interface() {
+	long := make([]int, 10000000)
+	newlong := make([]int, 10000000)
+	iter := IntRange(long)
+	i:=0
+	start := time.Now()
+	for iter.Next() {
+		newlong[i] = iter.Value().(int)
+		i++
+	}
+	end := time.Now()
+	fmt.Println(end.Sub(start))
+}
+
 func main() {
 	time_siter()
 	time_fast_and_slow()
+	time_interface()
 }
